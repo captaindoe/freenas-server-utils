@@ -25,7 +25,7 @@ jexec REPLACE WITH THE JID tcsh
 ```
 # Update the package lists and upgrade any packages
 pkg update && pkg upgrade 
-pkg install git 
+pkg install bash git 
 ```
 - Clone the repo
 ```
