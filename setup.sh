@@ -10,7 +10,8 @@ apache_cfg_dir=/usr/local/etc/apache24
 
 pkg update \
   && pkg upgrade \
-  && pkg install bash openvpn unzip curl apache24 vim
+  && pkg install bash openvpn unzip curl apache24 vim \
+  && pkg clean
 
 # Setup OpenVPN
 mkdir -p $openvpn_dir 
@@ -28,7 +29,8 @@ EOF
 sed -i '' "s|auth-user-pass|auth-user-pass /opt/openvpn/credentials|g" *
 
 # Copy the scripts and html documents to the apache folders
-cp $working_dir/apache2/conf/httpd.conf $apache_cfg_dir/httpd.conf
+cp $apache_cfg_dir/httpd.conf $apache_cfg_dir/httpd.conf.bak
+cp $working_dir/apache2/conf/httpd.freebsd.conf $apache_cfg_dir/httpd.conf
 cp -r $working_dir/apache2/public-html/* $apache_www_dir/data
 cp -r $working_dir/apache2/cgi-bin/* $apache_www_dir/cgi-bin
 
@@ -40,7 +42,10 @@ sysrc openvpn_configfile=/opt/openvpn/...ovpn
 sysrc apache24_enable=yes
 
 # Start OpenVPN
-/usr/local/etc/rc.d/openvpn start
+service openvpn restart
+
+# Start Apache Web Server
+service apache24 restart
 
 # Test IP Location
 curl --silent http://ip-api.com/json/`curl --silent ipecho.net/plain ; echo` | json_pp
