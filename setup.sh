@@ -4,8 +4,9 @@ username=$1
 password=$2
 
 working_dir=/opt/freenas-server-utils
-apache_dir=/usr/local/www/apache24
 openvpn_dir=/opt/openvpn
+apache_www_dir=/usr/local/www/apache24
+apache_cfg_dir=/usr/local/etc/apache24
 
 pkg update \
   && pkg upgrade \
@@ -27,8 +28,9 @@ EOF
 sed -i '' "s|auth-user-pass|auth-user-pass /opt/openvpn/credentials|g" *
 
 # Copy the scripts and html documents to the apache folders
-cp -r $working_dir/apache2/cgi-bin/* $apache_home/cgi-bin/
-cp -r $working_dir/public-html/* $apache_home/data/
+cp $working_dir/apache2/conf/httpd.conf $apache_cfg_dir/httpd.conf
+cp -r $working_dir/apache2/public-html/* $apache_www_dir/data
+cp -r $working_dir/apache2/cgi-bin/* $apache_www_dir/cgi-bin
 
 # Enable openvpn as a service and set configuration
 sysrc openvpn_enable=yes
