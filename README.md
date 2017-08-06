@@ -2,11 +2,9 @@
 
 Little project for my Freenas server to setup and monitor the state of my OpenVPN connections from my browser
 
-## OpenVPN on Jails
+## Freenas Jails
 
 Go to `Jails` -> `Storage` -> `Add Storage`
-
-[Here](https://www.ovpn.com/en/guides/freenas) for more
 
 ### Jails functions
 
@@ -22,15 +20,21 @@ jexec REPLACE WITH THE JID tcsh
 
 ### Install and configure OpenVPN & Apache Web Server
 
-*Prerequisites*
+**Prerequisites**
 - Git
 ```
 # Update the package lists and upgrade any packages
 pkg update && pkg upgrade 
 pkg install git 
 ```
+- Clone the repo
+```
+cd /opt
+git clone https://github.com/lackerman/freenas-server-utils.git
+cd freenas-server-utils/
+```
 
-*What is installed?*
+**What is installed?i**
 - httpd (Apache Web Server)
 - vim (just coz)
 - curl
