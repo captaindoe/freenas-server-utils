@@ -1,9 +1,13 @@
-FROM httpd:alpine
+FROM alpine:latest
+MAINTAINER Mojolicious
 
-COPY apache2/conf/httpd.conf /usr/local/apache2/conf/
-COPY apache2/public-html/* /usr/local/apache2/htdocs/
-COPY apache2/cgi-bin/* /usr/local/apache2/cgi-bin/
+COPY cpanfile /
+ENV EV_EXTRA_DEFS -DEV_NO_ATFORK
 
-RUN apk --no-cache add curl 
+RUN apk update && \
+      apk add perl perl-io-socket-ssl perl-dbd-pg perl-dev g++ make wget curl && \
+      curl -L https://cpanmin.us | perl - App::cpanminus && \
+      cpanm --installdeps . -M https://cpan.metacpan.org && \
+      apk del perl-dev g++ make wget curl && \
+      rm -rf /root/.cpanm/* /usr/local/share/man/*
 
-EXPOSE 8080

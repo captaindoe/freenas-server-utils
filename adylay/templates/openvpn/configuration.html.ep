@@ -1,0 +1,9 @@
+<h1>OpenVPN Configuration</h1>
+<form class="pure-form pure-form-stacked">
+  <label>Select OpenVPN Configuration</label>
+  <select  class="browser-default">
+    % for my $file (@$files) {
+    <option value="<%= $file %>"><%= $file %></option>
+    % }
+  </select>
+</form>
