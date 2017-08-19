@@ -21,7 +21,7 @@ qx 'mkdir -p $openvpn_dir \
     && cd $openvpn_dir \
     && curl https://nordvpn.com/api/files/zip -o nordvpn.zip \
     && unzip nordvpn.zip \
-    && rm -f nordvpn.zip'
+    && rm -f nordvpn.zip';
 
 # Init credentials file
 my $filename = '/opt/openvpn/credentials';
@@ -33,7 +33,7 @@ close $fh;
 qx "perl -pi -w -e 's|auth-user-pass|auth-user-pass /opt/openvpn/credentials|g;' *.ovpn";
 
 # Enable openvpn as a service and set configuration
-qx 'sysrc openvpn_enable=yes'
+qx 'sysrc openvpn_enable=yes';
 
 # This will be set by the webapp in future
 #
