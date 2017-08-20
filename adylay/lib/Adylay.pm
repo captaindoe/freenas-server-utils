@@ -8,7 +8,7 @@ use Adylay::Model::OpenVPN;
 sub startup {
   my $self = shift;
 
-  # Load configuration from hash returned by "my_app.conf"
+  # Load configuration from hash returned by "Adylay.conf"
   my $config = $self->plugin('Config');
 
   # Documentation browser under "/perldoc"
@@ -16,7 +16,7 @@ sub startup {
 
   # Helper to lazy initialize and store our model object
   my $ipModel = Adylay::Model::Ip->new;
-  my $vpnModel = Adylay::Model::OpenVPN->new($config->{config_location});
+  my $vpnModel = Adylay::Model::OpenVPN->new($config->{openvpn_config_location});
 
   # Router
   my $router = $self->routes;
