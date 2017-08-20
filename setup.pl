@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 
 my $os = `uname`;
+chomp $os;
 
 sub execute {
   my $task = shift;
@@ -26,16 +27,18 @@ my $working_dir = '/opt/freenas-server-utils';
 my $openvpn_dir = '/opt/openvpn';
 
 if (isFreeBsd()) {
-  execute 'pkg update \
+  execute 'Installing dependencies', 'pkg update \
   && pkg upgrade \
-  && pkg install git openvpn unzip curl \
+  && pkg install -y git openvpn unzip \
   && pkg clean';
 }
 
-execute 'Get Project Source', 'mkdir -p /opt \
-&& cd /opt \
-&& git clone https://github.com/lackerman/freenas-server-utils.git \
-&& cd freenas-server-utils';
+if (!(-e $working_dir and -d $working_dir)) {
+  execute 'Get Project Source', 'mkdir -p /opt \
+  && cd /opt \
+  && git clone https://github.com/lackerman/freenas-server-utils.git \
+  && cd freenas-server-utils';
+}
 
 execute 'Install Cpanminus', 'curl -sL https://cpanmin.us | perl - App::cpanminus;';
 execute 'Setup the Mojolicious dependencies', "cd $working_dir && \\
@@ -44,7 +47,7 @@ cpanm --installdeps . -M https://cpan.metacpan.org";
 execute 'Setup OpenVPN', "mkdir -p $openvpn_dir \\
 && cd $openvpn_dir \\
 && curl -s https://nordvpn.com/api/files/zip -o nordvpn.zip \\
-&& unzip -q nordvpn.zip \\
+&& unzip -qo nordvpn.zip \\
 && rm -f nordvpn.zip";
 
 execute 'Updating Config', "cd $openvpn_dir \\
