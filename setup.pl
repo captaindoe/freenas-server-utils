@@ -56,7 +56,7 @@ execute 'Updating Config', "cd $openvpn_dir \\
 # Init credentials file
 my $filename = '/opt/openvpn/credentials';
 open(my $fh, '>', $filename) or die "Could not open file '$filename' $!";
-print $fh "$username\n$password";
+print $fh "$username\n$password\n";
 close $fh;
 
 execute('Enable openvpn as a service', 'sysrc openvpn_enable=yes') unless isFreeBsd();
