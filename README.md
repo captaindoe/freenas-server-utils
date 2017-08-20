@@ -25,7 +25,7 @@ jexec REPLACE WITH THE JID tcsh
 ```
 # Update the package lists and upgrade any packages
 pkg update && pkg upgrade 
-pkg install curl 
+pkg install -y curl 
 ```
 
 **Setup and configure the app**
