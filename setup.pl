@@ -28,7 +28,7 @@ my $openvpn_dir = '/opt/openvpn';
 
 if (isFreeBsd()) {
   execute 'Installing dependencies', 'pkg update \
-  && pkg upgrade \
+  && pkg upgrade -y \
   && pkg install -y git openvpn unzip \
   && pkg clean';
 }
