@@ -30,7 +30,7 @@ if (isFreeBsd()) {
   execute 'Installing dependencies', 'pkg update \
   && pkg upgrade -y \
   && pkg install -y git openvpn unzip \
-  && pkg clean -y';
+  && pkg clean --yes';
 }
 
 if (!(-e $working_dir and -d $working_dir)) {
