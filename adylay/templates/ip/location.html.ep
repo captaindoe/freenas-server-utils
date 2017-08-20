@@ -1,7 +1,9 @@
-<h1>IP Information</h1>
+<div>
+  <h1>IP Information</h1>
 
-<table>
-  % for my $key (sort {lc $a cmp lc $b} keys %$locationInfo) {
-  <tr><td><%= $key %></td><td><%= %$locationInfo{$key} %></td></tr>
-  % }
-</table>
+  <table>
+    % for my $key (sort {lc $a cmp lc $b} keys %$locationInfo) {
+    <tr><td><%= $key %></td><td><%= %$locationInfo{$key} %></td></tr>
+    % }
+  </table>
+</div>

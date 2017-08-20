@@ -1,9 +1,25 @@
-<h1>OpenVPN Configuration</h1>
-<form class="pure-form pure-form-stacked">
-  <label>Select OpenVPN Configuration</label>
-  <select  class="browser-default">
-    % for my $file (@$files) {
-    <option value="<%= $file %>"><%= $file %></option>
-    % }
-  </select>
-</form>
+<div>
+  <h1>OpenVPN Configuration</h1>
+
+  % if (flash 'selection') {
+  <div class="info notification">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    Configuration updated to use: <%= flash 'selection' %>
+  </div>
+  % }
+  % if (flash 'error') {
+  <div class="alert notification">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <%= flash 'error' %>
+  </div>
+  % }
+  <form class="pure-form pure-form-stacked" method="post" action="openvpn/change">
+    <label>Select OpenVPN Configuration</label>
+    <select name="config" class="browser-default">
+      % for my $file (@$files) {
+      <option value="<%= $file %>"><%= $file %></option>
+      % }
+    </select>
+    <button class="pure-button pure-button-primary">Update config</button>
+  </form>
+</div>

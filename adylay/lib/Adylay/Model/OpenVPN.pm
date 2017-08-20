@@ -8,7 +8,7 @@ use Mojo::UserAgent;
 
 sub new {
   my ($type, $config_location) = @_;
-   
+
   my $self = bless {}, $type;
 
   $self->{openvpn_config_location} = $config_location;
@@ -28,6 +28,16 @@ sub get {
 
   chomp @files;
   return \@files;
+}
+
+sub update {
+  my $self = shift;
+  my $config = shift;
+
+  my $cmd = "sysrc openvpn_configfile=$self->{openvpn_config_location}/$config && service openvpn restart";
+  my $output = `$cmd`;
+  # Return whether or not the command executed successfully
+  return ($? == 0);
 }
 
 1;

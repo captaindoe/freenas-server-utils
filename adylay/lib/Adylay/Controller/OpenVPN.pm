@@ -18,4 +18,17 @@ sub configuration {
   }
 }
 
+sub change {
+  my $self = shift;
+  my $model = $self->stash('model');
+  my $selection = $self->req->body_params->param('config');
+  my $successful = $model->update($selection);
+  if ($successful) {
+    $self->flash(selection => $selection);
+  } else {
+    $self->flash(error => 'Failed to update config.');
+  }
+  $self->redirect_to('/');
+}
+
 1;

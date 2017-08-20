@@ -28,6 +28,7 @@ sub startup {
 
   $router->get('/ip')->to(controller => 'ip', action => 'location', model => $ipModel);
   $router->get('/openvpn')->to(controller => 'openvpn', action => 'configuration', model => $vpnModel);
+  $router->post('/openvpn/change')->to(controller => 'openvpn', action => 'change', model => $vpnModel);
 }
 
 1;
