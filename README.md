@@ -21,34 +21,30 @@ jexec REPLACE WITH THE JID tcsh
 ### Install and configure OpenVPN & Apache Web Server
 
 **Prerequisites**
-- Git
+- curl
 ```
 # Update the package lists and upgrade any packages
 pkg update && pkg upgrade 
-pkg install bash git 
+pkg install curl 
 ```
-- Clone the repo
+
+**Setup and configure the app**
+
+Download and execute the script. Provide a username and password for your VPN provider.
 ```
-cd /opt
-git clone https://github.com/lackerman/freenas-server-utils.git
-cd freenas-server-utils/
+curl -LO https://raw.githubusercontent.com/lackerman/freenas-server-utils/master/setup.pl -o /tmp/setup.pl
+perl /tmp/setup.pl user1 passA
 ```
 
 **What is installed?i**
-- httpd (Apache Web Server)
-- vim (just coz)
 - curl
 - openvpn
 - unzip
+- cpanm
+- Mojolicious dependencies
 
-See the [setup file](setup.sh) for specifics.
-
-To execute the script, please provide a username and password for your
-VPN provider. For example:
-```
-bash setup.sh username@domain password
-```
+See the [setup file](setup.pl) for specifics.
 
 ## Testing in Docker
 
-The [Dockerfile](Dockerfile) is used to setup a jail like environment locally to test the setup script
+The [Dockerfile](Dockerfile) is used to setup a jail like environment locally to test the setup script and app.
