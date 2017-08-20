@@ -32,8 +32,7 @@ pkg install -y curl
 
 Download and execute the script. Provide a username and password for your VPN provider.
 ```
-curl -sL https://raw.githubusercontent.com/lackerman/freenas-server-utils/master/setup.pl -o /tmp/setup.pl
-perl /tmp/setup.pl user1 passA
+rm -f /tmp/setup.pl && curl -sL https://raw.githubusercontent.com/lackerman/freenas-server-utils/master/setup.pl -o /tmp/setup.pl && perl /tmp/setup.pl user1 passA
 ```
 
 **What is installed?i**
